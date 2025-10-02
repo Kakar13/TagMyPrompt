@@ -9,9 +9,9 @@
 [![MIT License](https://img.shields.io/badge/license-MIT-green?style=flat-square)](LICENSE)
 [![Next.js](https://img.shields.io/badge/Next.js-15-black?style=flat-square&logo=next.js)](https://nextjs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.7-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/tagmyprompt)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Kakar13/TagMyPrompt)
 
-[Live Demo](https://tagmyprompt.vercel.app) • [Documentation](https://github.com/yourusername/tagmyprompt) • [Report Bug](https://github.com/yourusername/tagmyprompt/issues) • [Request Feature](https://github.com/yourusername/tagmyprompt/issues)
+[Live Demo](https://tagmyprompt.vkakar.com) • [Documentation](https://github.com/Kakar13/TagMyPrompt) • [Report Bug](https://github.com/Kakar13/TagMyPrompt/issues) • [Request Feature](https://github.com/Kakar13/TagMyPrompt/issues)
 
 </div>
 
@@ -38,14 +38,14 @@ TagMyPrompt is a professional, open-source prompt engineering tool that helps yo
 
 ### Try It Now
 
-Visit [https://tagmyprompt.vercel.app](https://tagmyprompt.vercel.app) and start building better prompts instantly. No account required!
+Visit [https://tagmyprompt.vkakar.com](https://tagmyprompt.vkakar.com) and start building better prompts instantly. No account required!
 
 ### Run Locally
 
 ```bash
 # Clone the repository
-git clone https://github.com/yourusername/tagmyprompt.git
-cd tagmyprompt
+git clone https://github.com/Kakar13/TagMyPrompt.git
+cd TagMyPrompt
 
 # Install dependencies
 npm install
@@ -58,7 +58,7 @@ Open [http://localhost:3000](http://localhost:3000) in your browser.
 
 ### Deploy Your Own
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/yourusername/tagmyprompt)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/Kakar13/TagMyPrompt)
 
 ---
 
@@ -251,9 +251,9 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 📞 Support
 
-- 📧 [Open an Issue](https://github.com/yourusername/tagmyprompt/issues)
-- 💬 [GitHub Discussions](https://github.com/yourusername/tagmyprompt/discussions)
-- 📖 [Documentation](https://github.com/yourusername/tagmyprompt/blob/main/README.md)
+- 📧 [Open an Issue](https://github.com/Kakar13/TagMyPrompt/issues)
+- 💬 [GitHub Discussions](https://github.com/Kakar13/TagMyPrompt/discussions)
+- 📖 [Documentation](https://github.com/Kakar13/TagMyPrompt/blob/main/README.md)
 
 ---
 
@@ -273,9 +273,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 <div align="center">
 
 **[⬆ back to top](#tagmyprompt)**
-
-Made with ❤️ by the open source community
-
-[Website](https://tagmyprompt.vercel.app) • [GitHub](https://github.com/yourusername/tagmyprompt) • [Issues](https://github.com/yourusername/tagmyprompt/issues)
+[Website](https://tagmyprompt.vkakar.com) • [GitHub](https://github.com/Kakar13/TagMyPrompt) • [Issues](https://github.com/Kakar13/TagMyPrompt/issues)
 
 </div>

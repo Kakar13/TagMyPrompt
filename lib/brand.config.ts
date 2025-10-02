@@ -7,9 +7,9 @@ export const brand = {
   
   colors: {
     primary: {
-      brand: "#8B5CF6",
-      deep: "#6D28D9",
-      light: "#A78BFA",
+      brand: "#2563EB",
+      deep: "#1E40AF",
+      light: "#3B82F6",
     },
     secondary: {
       blue: "#3B82F6",

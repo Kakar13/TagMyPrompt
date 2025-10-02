@@ -20,7 +20,7 @@ export const metadata: Metadata = {
   description: "Professional prompt engineering tool with XML/Markdown tagging and AI-powered formatting. Build better prompts with structured context engineering.",
   keywords: ["AI", "prompts", "prompt engineering", "context engineering", "XML", "Markdown", "Claude API", "TagMyPrompt"],
   authors: [{ name: "TagMyPrompt" }],
-  metadataBase: new URL("https://tagmyprompt.vercel.app"),
+  metadataBase: new URL("https://tagmyprompt.vkakar.com"),
   openGraph: {
     title: "TagMyPrompt - Structure your AI prompts with precision",
     description: "Professional prompt engineering tool with XML/Markdown tagging and AI-powered formatting",
@@ -48,7 +48,7 @@ export const metadata: Metadata = {
     apple: "/apple-touch-icon.png",
   },
   manifest: "/manifest.json",
-  themeColor: "#8B5CF6",
+  themeColor: "#2563EB",
 };
 
 export default function RootLayout({

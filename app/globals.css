@@ -10,7 +10,7 @@
     --card-foreground: 210 40% 98%;
     --popover: 217.2 32.6% 17.5%;
     --popover-foreground: 210 40% 98%;
-    --primary: 262.1 83.3% 57.8%;
+    --primary: 217.2 91.2% 59.8%;
     --primary-foreground: 210 40% 98%;
     --secondary: 217.2 32.6% 17.5%;
     --secondary-foreground: 210 40% 98%;
@@ -22,7 +22,7 @@
     --destructive-foreground: 210 40% 98%;
     --border: 217.2 32.6% 20.5%;
     --input: 217.2 32.6% 20.5%;
-    --ring: 262.1 83.3% 57.8%;
+    --ring: 217.2 91.2% 59.8%;
     --radius: 0.5rem;
   }
 }
@@ -64,15 +64,15 @@
 @layer components {
   /* Gradient text utilities */
   .gradient-text {
-    @apply bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent;
   }
   
   .gradient-primary {
-    @apply bg-gradient-to-r from-purple-600 to-purple-700;
+    @apply bg-gradient-to-r from-blue-600 to-blue-700;
   }
   
   .gradient-secondary {
-    @apply bg-gradient-to-r from-blue-600 to-purple-600;
+    @apply bg-gradient-to-r from-blue-500 to-blue-600;
   }
   
   /* Glass effect */
@@ -108,7 +108,7 @@
     background: linear-gradient(
       to right,
       transparent 0%,
-      rgba(139, 92, 246, 0.1) 50%,
+      rgba(37, 99, 235, 0.1) 50%,
       transparent 100%
     );
     background-size: 1000px 100%;

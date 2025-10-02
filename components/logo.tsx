@@ -40,8 +40,8 @@ export function Logo({ variant = "full", className, size = "md" }: LogoProps) {
         <circle cx="20" cy="20" r="2" fill="white" />
         <defs>
           <linearGradient id="gradient" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#8B5CF6" />
-            <stop offset="1" stopColor="#6D28D9" />
+            <stop stopColor="#2563EB" />
+            <stop offset="1" stopColor="#1E40AF" />
           </linearGradient>
         </defs>
       </svg>
@@ -74,8 +74,8 @@ export function Logo({ variant = "full", className, size = "md" }: LogoProps) {
         <circle cx="20" cy="20" r="2" fill="white" />
         <defs>
           <linearGradient id="gradient-full" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
-            <stop stopColor="#8B5CF6" />
-            <stop offset="1" stopColor="#6D28D9" />
+            <stop stopColor="#2563EB" />
+            <stop offset="1" stopColor="#1E40AF" />
           </linearGradient>
         </defs>
       </svg>
@@ -86,7 +86,7 @@ export function Logo({ variant = "full", className, size = "md" }: LogoProps) {
         size === "lg" && "text-2xl"
       )}>
         <span className="text-foreground font-mono">&lt;</span>
-        <span className="bg-gradient-to-r from-purple-500 to-purple-600 bg-clip-text text-transparent">
+        <span className="bg-gradient-to-r from-blue-500 to-blue-600 bg-clip-text text-transparent">
           TagMyPrompt
         </span>
         <span className="text-foreground font-mono">&gt;</span>
