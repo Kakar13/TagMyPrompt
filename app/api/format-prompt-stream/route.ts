@@ -1,13 +1,23 @@
 import { NextRequest } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
+import { getFormatterSystemPrompt, validatePromptForFormatting, type FormattingStyle } from "@/lib/prompts/formatter-system-prompt";
 
 export async function POST(request: NextRequest) {
   try {
-    const { prompt, apiKey } = await request.json();
+    const { prompt, apiKey, style = 'standard' } = await request.json();
 
     if (!prompt) {
       return new Response(
         JSON.stringify({ error: "Prompt is required" }),
+        { status: 400, headers: { "Content-Type": "application/json" } }
+      );
+    }
+
+    // Validate prompt and provide guidance
+    const validation = validatePromptForFormatting(prompt);
+    if (!validation.valid) {
+      return new Response(
+        JSON.stringify({ error: validation.message }),
         { status: 400, headers: { "Content-Type": "application/json" } }
       );
     }
@@ -23,23 +33,14 @@ export async function POST(request: NextRequest) {
 
     const anthropic = new Anthropic({ apiKey: key });
 
+    // Get the enhanced system prompt based on formatting style
+    const systemPrompt = getFormatterSystemPrompt(style as FormattingStyle);
+
     const stream = await anthropic.messages.stream({
-      model: "claude-3-5-haiku-20241022",
+      model: "claude-sonnet-4-5-20250929", // Using Claude Sonnet 4.5 for best results
       max_tokens: 4096,
-      temperature: 0,
-      system: `Analyze this prompt and enhance it with proper XML structure and Markdown formatting following Anthropic's context engineering best practices. 
-
-Add relevant tags like <instructions>, <examples>, <context>, <thinking>, <output>, <constraints> where appropriate. 
-
-Organize content with clear sections using Markdown headers (##) where helpful.
-
-Preserve the user's intent but improve structure and clarity. Focus on:
-- Minimal high-signal tokens
-- Clear, organized sections
-- Proper XML tag hierarchy
-- Effective use of Markdown formatting
-
-Return ONLY the formatted prompt without any explanation or preamble.`,
+      temperature: 0.3, // Slightly higher for more natural formatting choices
+      system: systemPrompt,
       messages: [
         {
           role: "user",
@@ -60,14 +61,18 @@ Return ONLY the formatted prompt without any explanation or preamble.`,
             }
           }
 
-          // Send final message with usage stats
+          // Send final message with usage stats and validation info
           const finalMessage = await stream.finalMessage();
           const usageData = `data: ${JSON.stringify({ 
             done: true, 
             usage: {
               inputTokens: finalMessage.usage.input_tokens,
               outputTokens: finalMessage.usage.output_tokens,
-            }
+            },
+            validation: validation.message ? { 
+              message: validation.message, 
+              suggestion: validation.suggestion 
+            } : undefined
           })}\n\n`;
           controller.enqueue(encoder.encode(usageData));
           

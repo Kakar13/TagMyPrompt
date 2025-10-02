@@ -16,6 +16,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { savePrompt, exportData, importData } from "@/lib/storage";
 import { getApiKey, hasApiKey } from "@/lib/api-key-storage";
 import { Prompt } from "@/lib/types";
+import { type FormattingStyle } from "@/lib/prompts/formatter-system-prompt";
 import {
   Save,
   FileText,
@@ -32,6 +33,7 @@ import {
   Loader2,
   Copy,
   Check,
+  ChevronDown,
 } from "lucide-react";
 import Link from "next/link";
 import { toast } from "sonner";
@@ -53,6 +55,8 @@ export default function EditorPage() {
   const [tagSuggestions, setTagSuggestions] = useState<Array<{ tag: string; reason: string }>>([]);
   const [hasApiKeyConfigured, setHasApiKeyConfigured] = useState(false);
   const [copied, setCopied] = useState(false);
+  const [formattingStyle, setFormattingStyle] = useState<FormattingStyle>('standard');
+  const [showFormattingMenu, setShowFormattingMenu] = useState(false);
 
   useEffect(() => {
     setHasApiKeyConfigured(hasApiKey());
@@ -82,6 +86,19 @@ export default function EditorPage() {
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
   }, [content, hasApiKeyConfigured]);
+
+  // Close formatting menu when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (e: MouseEvent) => {
+      const target = e.target as HTMLElement;
+      if (showFormattingMenu && !target.closest('.formatting-menu-container')) {
+        setShowFormattingMenu(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, [showFormattingMenu]);
 
   const handleSavePrompt = async () => {
     const prompt: Prompt = {
@@ -176,7 +193,11 @@ export default function EditorPage() {
       const response = await fetch("/api/format-prompt-stream", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ prompt: previousContent, apiKey }),
+        body: JSON.stringify({ 
+          prompt: previousContent, 
+          apiKey,
+          style: formattingStyle 
+        }),
       });
 
       if (!response.ok) {
@@ -312,21 +333,63 @@ export default function EditorPage() {
 
           <div className="flex items-center gap-2">
             {/* AI Features */}
-            <Button
-              variant="default"
-              size="sm"
-              onClick={handleAIFormat}
-              disabled={isFormatting || !content.trim()}
-              className="gradient-primary hover-lift"
-              title="AI Format (Cmd/Ctrl + Shift + F)"
-            >
-              {isFormatting ? (
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              ) : (
-                <Sparkles className="h-4 w-4 mr-2" />
-              )}
-              <span className="hidden sm:inline">AI Format</span>
-            </Button>
+            <div className="flex items-center formatting-menu-container">
+              <Button
+                variant="default"
+                size="sm"
+                onClick={handleAIFormat}
+                disabled={isFormatting || !content.trim()}
+                className="gradient-primary hover-lift rounded-r-none"
+                title="AI Format (Cmd/Ctrl + Shift + F)"
+              >
+                {isFormatting ? (
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                ) : (
+                  <Sparkles className="h-4 w-4 mr-2" />
+                )}
+                <span className="hidden sm:inline">AI Format</span>
+              </Button>
+              <div className="relative">
+                <Button
+                  variant="default"
+                  size="sm"
+                  onClick={() => setShowFormattingMenu(!showFormattingMenu)}
+                  disabled={isFormatting}
+                  className="gradient-primary hover-lift rounded-l-none border-l border-l-white/20 px-2"
+                  title="Choose formatting style"
+                >
+                  <ChevronDown className="h-4 w-4" />
+                </Button>
+                {showFormattingMenu && (
+                  <div className="absolute right-0 top-full mt-1 w-56 glass rounded-lg shadow-lg border border-border/50 py-1 z-50">
+                    <div className="px-3 py-2 text-xs font-semibold text-muted-foreground border-b border-border/50">
+                      Formatting Style
+                    </div>
+                    {[
+                      { value: 'standard', label: 'Standard', desc: 'Balanced structure' },
+                      { value: 'minimal', label: 'Minimal', desc: 'Light formatting' },
+                      { value: 'comprehensive', label: 'Comprehensive', desc: 'Detailed structure' },
+                      { value: 'agent-optimized', label: 'Agent-Optimized', desc: 'For agentic workflows' },
+                    ].map((style) => (
+                      <button
+                        key={style.value}
+                        onClick={() => {
+                          setFormattingStyle(style.value as FormattingStyle);
+                          setShowFormattingMenu(false);
+                          toast.success(`Formatting style: ${style.label}`);
+                        }}
+                        className={`w-full text-left px-3 py-2 text-sm hover:bg-muted/50 transition-colors ${
+                          formattingStyle === style.value ? 'bg-primary/10 text-primary' : ''
+                        }`}
+                      >
+                        <div className="font-medium">{style.label}</div>
+                        <div className="text-xs text-muted-foreground">{style.desc}</div>
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
             <Button
               variant="outline"
               size="sm"
